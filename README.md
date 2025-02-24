@@ -28,7 +28,7 @@ Vercel - para o front
 Render - para o back
 
 Divisão de Tarefas:
-@henriquemaiacardosa - Frontend
-@blackmageagito - Backend
+@henriquemaiacardosa - Frontend, tela e design 
+@blackmageagito - Backend, CRUD e banco de dados
 
 
