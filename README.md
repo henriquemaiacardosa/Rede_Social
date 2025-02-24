@@ -28,7 +28,7 @@ Vercel - para o front
 Render - para o back
 
 Divisão de Tarefas:
-@henriquemaiacardosa - 
-@blackmageagito - 
+@henriquemaiacardosa - Frontend
+@blackmageagito - Backend
 
 
