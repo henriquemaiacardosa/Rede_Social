@@ -7,26 +7,28 @@ CRUD completo para posts (criação, leitura, atualização e exclusão).
 Transação segura para envio de comentários ou curtidas.
 Controle de acesso para restringir a área de administração a usuários autenticados.
 
-Tecnologias (FrontEnd)
+Tecnologias (FrontEnd):
 Html
 CSS
 JavaScript
 React
 
-BackEnd
+BackEnd:
 Node.Js
 Express.Js
 
-Banco de Dados
-PostgreSQL
+Banco de Dados:
+Supabase
 
-Autenticação
+Autenticação:
 JWT
 
-Deploy 
+Deploy: 
 Vercel - para o front 
 Render - para o back
 
 Divisão de Tarefas:
+@henriquemaiacardosa - 
+@blackmageagito - 
 
 
