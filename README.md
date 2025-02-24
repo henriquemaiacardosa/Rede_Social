@@ -1,4 +1,4 @@
-# Blog
+# Rede Social
 A aplicação proposta é um Blog para exposição de conteúdo,onde os usuários podem visualizar publicações e, através de um painel de edição, criar, editar e excluir posts. A plataforma facilitará a produção e organização do conteúdo, permitindo que administradores insiram textos formatados, imagens e categorias, de maneira simples e intuitiva.
 
 O sistema contará com:
