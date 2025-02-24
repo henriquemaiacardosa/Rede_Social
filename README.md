@@ -1,8 +1,4 @@
 # Blog
-Aplicação Web para a materia de Desenvolvimento Web do curso de Engenharia de Software. 
-Este site será desenvolvido por um aluno do quinto período de Engenharia de Software da Universidade Católica de Santa Catarina. 
-Irei desenvolver com o objetivo de adquirir conhecimento e aprimorar o domínio de tecnologias que já conheço.
-
 A aplicação proposta é um Blog para exposição de conteúdo,onde os usuários podem visualizar publicações e, através de um painel de edição, criar, editar e excluir posts. A plataforma facilitará a produção e organização do conteúdo, permitindo que administradores insiram textos formatados, imagens e categorias, de maneira simples e intuitiva.
 
 O sistema contará com:
