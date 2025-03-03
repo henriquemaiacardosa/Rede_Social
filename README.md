@@ -1,32 +1,44 @@
-# GOALS
-Rede Social para compartilhamento de metas, o usuário pode compartilhar suas metas, objetivos, projetos que já estão em andamento ou podem iniciar um/uma na GOALS. Os outros usuários podem interagir com suas metas, incentivando, ou adicionando cometários positivos.
+# 🎯 GOALS - Rede Social para Compartilhamento de Metas
 
-A aplicação proposta tem como principal função exposição de conteúdo, onde os usuários podem visualizar publicações e, através de um painel editar, criar, e excluir posts. A mesma facilitará a produção e organização do conteúdo, permitindo que os usuários insiram suas metas, textos formatados, imagens de maneira simples e intuitiva.
+Rede Social para compartilhamento de metas, onde os usuários podem compartilhar seus objetivos, projetos em andamento ou iniciar novos diretamente na plataforma GOALS. Outros usuários podem interagir com as metas, incentivando ou deixando comentários positivos.
 
-O sistema contará com:
-- CRUD completo para posts (criação, leitura, atualização e exclusão).
-- Transação segura para envio de comentários ou incentivo.
-- Controle de acesso para restringir a área de administração a usuários autenticados.
+A aplicação tem como principal função a **exposição de conteúdo**, permitindo que os usuários visualizem publicações e, através de um painel, possam criar, editar e excluir posts. A plataforma facilitará a produção e organização das metas, possibilitando a inserção de textos formatados e imagens de maneira simples e intuitiva.
 
-Tecnologias
-  
-FRONTEND:
-- HTML (estrutura).
-- CSS (estilização).
-- JavaScript (interatividade).
-- React (???)
- 
-BACKEND:
-- Node.Js
-- Express.Js
+## 🛠️ Tecnologias Utilizadas
+
+### 🖼️ Frontend:
+- HTML
+- CSS
+- JavaScript
+- React
+
+### 🖧 Backend:
+- Node.js
+- Express.js
 - Supabase
- 
-Autenticação:
-- JWT
 
-Deploy:
+### 🔒 Autenticação:
+- JWT (JSON Web Token)
+
+### 🚀 Deploy:
 - Vercel
 - Render
-   
-Divisão de Tarefas:
-@henriquemaiacardosa, @blackmageagito.
+
+## ✅ Requisitos Funcionais (RF)
+- **RF01:** O sistema deve permitir que o usuário crie, edite e exclua metas.
+- **RF02:** O sistema deve permitir visualizar as metas publicadas por outros usuários.
+- **RF03:** O sistema deve permitir que os usuários façam comentários ou enviem incentivos para outras metas.
+- **RF04:** O sistema deve ter controle de acesso para restringir a área de administração a usuários autenticados.
+
+## ⚙️ Requisitos Não Funcionais (RNF)
+- **RNF01:** O sistema deve ser responsivo para diferentes tamanhos de tela.
+- **RNF02:** A aplicação deve garantir a segurança das transações e dados do usuário.
+- **RNF03:** O tempo de resposta das requisições deve ser inferior a 3 segundos.
+
+## 📋 Divisão de Tarefas
+- @henriquemaiacardosa
+- @blackmageagito
+
+Se quiser ajustar algo ou adicionar mais seções, estou aqui para ajudar! ✌️
+
+
