@@ -10,7 +10,6 @@ A aplicação tem como principal função a **exposição de conteúdo**, permit
 - HTML
 - CSS
 - JavaScript
-- React
 
 ### 🖧 Backend:
 - Node.js
