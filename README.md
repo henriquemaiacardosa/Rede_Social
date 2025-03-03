@@ -8,25 +8,25 @@ O sistema contará com:
 - Transação segura para envio de comentários ou incentivo.
 - Controle de acesso para restringir a área de administração a usuários autenticados.
 
-  Tecnologias
+Tecnologias
   
-  FRONTEND:
-  - HTML (estrutura).
-  - CSS (estilização).
-  - JavaScript (interatividade).
-  - React (???)
+FRONTEND:
+- HTML (estrutura).
+- CSS (estilização).
+- JavaScript (interatividade).
+- React (???)
  
-  BACKEND:
-  - Node.Js
-  - Express.Js
-  - Supabase
+BACKEND:
+- Node.Js
+- Express.Js
+- Supabase
  
-  Autenticação:
-  - JWT
+Autenticação:
+- JWT
 
-  Deploy:
-  - Vercel
-  - Render
+Deploy:
+- Vercel
+- Render
    
-  Divisão de Tarefas:
-  @henriquemaiacardosa, @blackmageagito.
+Divisão de Tarefas:
+@henriquemaiacardosa, @blackmageagito.
