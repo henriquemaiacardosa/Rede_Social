@@ -38,6 +38,7 @@ A aplicação tem como principal função a **exposição de conteúdo**, permit
 ## 📋 Divisão de Tarefas
 - @henriquemaiacardosa
 - @blackmageagito
+- Link para o Trello: https://trello.com/invite/b/66ea0777db4c11b882773f4e/ATTIe0a1b6088cc27ead371c78c8edca75c19F8C88F3/programacao-web-aplicacao-goals
 
 
 
