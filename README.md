@@ -20,6 +20,7 @@ A aplicação tem como principal função a exposição de conteúdo, permitindo
 - Node.js
 - Express.js
 - Supabase
+- Jest (para Teste)
 
 ### 🔒 Autenticação:
 
