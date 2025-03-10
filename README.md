@@ -48,6 +48,7 @@ A aplicação tem como principal função a exposição de conteúdo, permitindo
 - **RNF02:** O backend deve ser desenvolvido com Node.js e Express.js.
 - **RNF03:** O deploy deve ser feito com CI/CD usando Vercel ou Render.
 - **RNF04:** A aplicação deve ser responsiva e acessível.
+- **RNF05:** A aplicação deve ser testada com o framework Jest.
 
 ---
 
