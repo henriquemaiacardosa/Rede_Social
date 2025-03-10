@@ -62,7 +62,7 @@ A aplicação tem como principal função a exposição de conteúdo, permitindo
 ## 🏗️ Arquitetura da Aplicação
 
 - **Tipo:** Monolítica.
-- **Justificativa:** Para um primeiro projeto, a arquitetura monolítica facilita o desenvolvimento e o deploy, reduzindo a complexidade de configuração e integrações.
+- **Justificativa:** Para um primeiro projeto, decidimos usar a arquitetura monolítica pois facilita o desenvolvimento e o deploy, reduzindo a complexidade de configuração e integrações.
 
 ---
 
