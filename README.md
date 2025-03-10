@@ -1,12 +1,12 @@
-🎯 GOALS - Rede Social para Compartilhamento de Metas
+##🎯 GOALS - Rede Social para Compartilhamento de Metas
 
 Rede Social para compartilhamento de metas, onde os usuários podem compartilhar seus objetivos, projetos em andamento ou iniciar novos diretamente na plataforma GOALS. Outros usuários podem interagir com as metas, incentivando ou deixando comentários positivos.
 
 A aplicação tem como principal função a exposição de conteúdo, permitindo que os usuários visualizem publicações e, através de um painel, possam criar, editar e excluir posts. A plataforma facilitará a produção e organização das metas, possibilitando a inserção de textos formatados e imagens de maneira simples e intuitiva.
 
-🛠️ Tecnologias Utilizadas
+#🛠️ Tecnologias Utilizadas
 
-🖼️ Frontend:
+#🖼️ Frontend:
 
 HTML
 
@@ -14,7 +14,7 @@ CSS
 
 JavaScript
 
-🖧 Backend:
+#🖧 Backend:
 
 Node.js
 
@@ -22,17 +22,17 @@ Express.js
 
 Supabase
 
-🔒 Autenticação:
+#🔒 Autenticação:
 
 JWT (JSON Web Token)
 
-🚀 Deploy:
+#🚀 Deploy:
 
 Vercel
 
 Render
 
-✅ Requisitos Funcionais (RF)
+##✅ Requisitos Funcionais (RF)
 
 ✅ RF01: O sistema deve permitir que o usuário crie, edite e exclua metas.
 
@@ -42,7 +42,7 @@ Render
 
 ✅ RF04: O usuário deve conseguir fazer login e logout usando JWT para autenticação.
 
-⚙️ Requisitos Não Funcionais (RNF)
+##⚙️ Requisitos Não Funcionais (RNF)
 
 🔒 RNF01: A aplicação deve garantir a segurança das transações e dados do usuário.
 
@@ -52,11 +52,11 @@ Render
 
 📱 RNF04: A aplicação deve ser responsiva e acessível.
 
-📊 Estratégias de Desenvolvimento
+#📊 Estratégias de Desenvolvimento
 
 🟩 Metodologia: Kanban (usando Trello para gestão das tarefas).
 
-🔁 Fluxo de trabalho:
+##🔁 Fluxo de trabalho:
 
 Desenvolvimento iterativo para implementar funcionalidades.
 
@@ -64,13 +64,13 @@ Testes unitários básicos para validar funcionalidades críticas (TDD leve).
 
 Revisão de código entre os membros da equipe.
 
-🏗️ Arquitetura da Aplicação
+#🏗️ Arquitetura da Aplicação
 
 🧩 Tipo: Monolítica.
 
 📘 Justificativa: Para um primeiro projeto, a arquitetura monolítica simplifica o desenvolvimento e o deploy, reduzindo a complexidade de configuração e integrações.
 
-🔧 Plano de Trabalho
+##🔧 Plano de Trabalho
 
 🎨 @henriquemaiacardosa: Responsável pelo frontend e estilização.
 
