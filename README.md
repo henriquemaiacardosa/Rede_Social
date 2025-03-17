@@ -69,6 +69,11 @@ A aplicação tem como principal função a exposição de conteúdo, permitindo
 
 ---
 
+
+## Banco de Dados Modelado
+
+- **Link:** https://www.drawdb.app/editor?shareId=126635cabe1f6def32a9f1ef09acae3d
+
 ## 🔧 Plano de Trabalho
 
 - **@henriquemaiacardosa:** Responsável pelo frontend e estilização.
