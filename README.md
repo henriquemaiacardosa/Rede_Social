@@ -38,8 +38,8 @@ A aplicação tem como principal função a exposição de conteúdo, permitindo
 - **RF01:** O sistema deve permitir que o usuário crie, edite e exclua metas.
 - **RF02:** O sistema deve permitir visualizar as metas publicadas por outros usuários.
 - **RF03:** O sistema deve permitir que os usuários façam comentários ou enviem incentivos para outras metas.
-- **RF04:** O usuário deve conseguir fazer login e logout usando JWT para autenticação.
-
+- **RF04:** O usuário deve conseguir fazer login e logout.
+- **RF05:** O sitema deve permitir a criação de um usuário.
 ---
 
 ## ⚙️ Requisitos Não Funcionais (RNF)
@@ -73,6 +73,10 @@ A aplicação tem como principal função a exposição de conteúdo, permitindo
 ## Banco de Dados Modelado
 
 - **Link:** https://www.drawdb.app/editor?shareId=126635cabe1f6def32a9f1ef09acae3d
+
+
+---
+
 
 ## 🔧 Plano de Trabalho
 
