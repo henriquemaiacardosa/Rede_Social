@@ -22,12 +22,12 @@ export const createUser = async (req, res) => {
 
 // listagem de usuarios apenas pelo nome
 export const getUsers = async (req, res) => {
-    const { nome } = req.query; //pPega o parâmetro "nome" da URL
+    const { nome } = req.query; //pega o parâmetro "nome" da URL
 
     let query = supabase.from("usuario").select("*");
 
     if (nome) {
-        query = query.ilike("nome", `%${nome}%`); // busca nomes que contenham o termo
+        query = query.ilike("nome", `%${nome}%`); 
     }
 
     const { data, error } = await query;
