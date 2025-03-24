@@ -80,7 +80,7 @@ A aplicação tem como principal função a exposição de conteúdo, permitindo
 
 ## 🔧 Plano de Trabalho
 
-- **@henriquemaiacardosa:** Responsável pelo frontend e estilização.
+- **@henriquemaiacardosa:** Responsável pelo frontend,estilização, backend/CRUD'S.
 - **@blackmageagito:** Responsável pelo backend e configuração do banco de dados.
 
 🔗 **Link para o Trello:** [Trello - GOALS](https://trello.com/invite/b/66ea0777db4c11b882773f4e/ATTIe0a1b6088cc27ead371c78c8edca75c19F8C88F3/programacao-web-aplicacao-goals)
