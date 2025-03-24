@@ -9,8 +9,9 @@ export const createUser = async (req, res) => {
     }
 
     const { data, error } = await supabase
-        .from("usuario") // Nome da tabela corrigido
-        .insert([{ nome, email, senha }]);
+        .from("usuario")
+        .insert([{ nome, email, senha }])
+        .select();
 
     if (error) {
         console.error("Erro ao criar usuário:", error);
@@ -20,17 +21,9 @@ export const createUser = async (req, res) => {
     res.status(201).json({ message: "Usuário criado com sucesso", data });
 };
 
-// listagem de usuarios apenas pelo nome
+// Lista todos os usuários
 export const getUsers = async (req, res) => {
-    const { nome } = req.query; //pega o parâmetro "nome" da URL
-
-    let query = supabase.from("usuario").select("*");
-
-    if (nome) {
-        query = query.ilike("nome", `%${nome}%`); 
-    }
-
-    const { data, error } = await query;
+    const { data, error } = await supabase.from("usuario").select("*");
 
     if (error) {
         console.error("Erro ao buscar usuários:", error);
@@ -40,6 +33,23 @@ export const getUsers = async (req, res) => {
     res.json(data);
 };
 
+export const getUserById = async (req, res) => {
+    const { id } = req.params;
+    console.log("ID recebido:", id); // Log para debug
+
+    const { data, error } = await supabase
+        .from("usuario") // Verifique se o nome da tabela está correto
+        .select("*")
+        .eq("id", id)
+        .single(); 
+
+    if (error) {
+        console.error("Erro ao buscar usuário:", error.message);
+        return res.status(500).json({ error: error.message });
+    }
+
+    res.json(data);
+};
 
 // Atualiza usuário
 export const updateUser = async (req, res) => {
@@ -51,9 +61,10 @@ export const updateUser = async (req, res) => {
     }
 
     const { data, error } = await supabase
-        .from("usuario") // Nome da tabela corrigido
+        .from("usuario")
         .update({ nome, email, senha })
-        .eq("id", id);
+        .eq("id", id)
+        .select();
 
     if (error) {
         console.error("Erro ao atualizar usuário:", error);
@@ -80,3 +91,4 @@ export const deleteUser = async (req, res) => {
 
     res.json({ message: "Usuário deletado com sucesso" });
 };
+
