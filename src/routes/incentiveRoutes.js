@@ -8,16 +8,16 @@ import {
 
 const router = express.Router();
 
-// Criar incentivo
+
 router.post("/", createIncentive);
 
-// Listar todos os incentivos
+
 router.get("/", getIncentives);
 
-// Listar incentivos por meta
+
 router.get("/meta/:meta_id", getIncentivesByMeta);
 
-// Remover incentivo
+
 router.delete("/:id", deleteIncentive);
 
 export default router;

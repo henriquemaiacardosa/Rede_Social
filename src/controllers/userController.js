@@ -1,6 +1,6 @@
 import { supabase } from "../config/supabaseClient.js";
 
-// Criação do usuário
+
 export const createUser = async (req, res) => {
     const { nome, email, senha } = req.body;
 
@@ -21,7 +21,7 @@ export const createUser = async (req, res) => {
     res.status(201).json({ message: "Usuário criado com sucesso", data });
 };
 
-// Lista todos os usuários
+
 export const getUsers = async (req, res) => {
     const { data, error } = await supabase.from("usuario").select("*");
 
@@ -51,7 +51,7 @@ export const getUserById = async (req, res) => {
     res.json(data);
 };
 
-// Atualiza usuário
+
 export const updateUser = async (req, res) => {
     const { id } = req.params;
     const { nome, email, senha } = req.body;
@@ -74,7 +74,7 @@ export const updateUser = async (req, res) => {
     res.json({ message: "Usuário atualizado com sucesso", data });
 };
 
-// Deleta usuário pelo ID
+
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
 

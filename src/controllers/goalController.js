@@ -32,7 +32,7 @@ export const getGoals = async (req, res) => {
   res.json(data);
 };
 
-// 🔍 Buscar meta por ID
+//  Buscar meta por ID
 export const getGoalById = async (req, res) => {
   const { id } = req.params;
 
@@ -49,7 +49,7 @@ export const getGoalById = async (req, res) => {
   res.json(data);
 };
 
-// 📝 Atualizar meta
+//  Atualizar meta
 export const updateGoal = async (req, res) => {
   const { id } = req.params;
   const { titulo, descricao, data_criacao } = req.body;

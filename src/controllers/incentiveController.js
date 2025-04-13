@@ -1,6 +1,6 @@
 import { supabase } from "../config/supabaseClient.js";
 
-// Criar incentivo (ex: curtida)
+
 export const createIncentive = async (req, res) => {
     const { usuario_id, meta_id, data_criacao } = req.body;
 
@@ -21,7 +21,7 @@ export const createIncentive = async (req, res) => {
     res.status(201).json({ message: "Incentivo criado com sucesso", data });
 };
 
-// Listar todos os incentivos
+
 export const getIncentives = async (req, res) => {
     const { data, error } = await supabase
         .from("incentivo")
@@ -35,7 +35,7 @@ export const getIncentives = async (req, res) => {
     res.json(data);
 };
 
-// Listar incentivos por meta
+
 export const getIncentivesByMeta = async (req, res) => {
     const { meta_id } = req.params;
 
@@ -52,7 +52,7 @@ export const getIncentivesByMeta = async (req, res) => {
     res.json(data);
 };
 
-// Remover incentivo (ex: descurtir)
+
 export const deleteIncentive = async (req, res) => {
     const { id } = req.params;
 
