@@ -7,21 +7,15 @@ import {
   deleteGoal
 } from "../controllers/goalController.js";
 
+import { autenticarToken } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
-// Rota para criar uma nova meta
-router.post("/", createGoal);
-
-// Rota para listar todas as metas
-router.get("/", getGoals);
-
-// Rota para buscar uma meta por ID
+// Proteger criação de metas
+router.post("/", autenticarToken, createGoal);
+router.get("/", getGoals); // público
 router.get("/:id", getGoalById);
-
-// Rota para atualizar uma meta
-router.put("/:id", updateGoal);
-
-// Rota para deletar uma meta
-router.delete("/:id", deleteGoal);
+router.put("/:id", autenticarToken, updateGoal);
+router.delete("/:id", autenticarToken, deleteGoal);
 
 export default router;
