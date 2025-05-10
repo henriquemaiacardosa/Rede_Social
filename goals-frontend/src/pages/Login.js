@@ -8,24 +8,27 @@ function Login() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+ const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/auth/login', { email, password });
-      
-      // Armazenar o token no localStorage
-      localStorage.setItem('token', response.data.token);
+        const response = await api.post('/auth/login', { 
+            email: email,
+            senha: password  
+        });
 
-      console.log('Login realizado com sucesso:', response.data);
-      setMessage('Login realizado com sucesso!');
+        
+        localStorage.setItem('token', response.data.token);
 
-      // Redirecionar para o dashboard
-      navigate('/dashboard');
+        console.log('Login realizado com sucesso:', response.data);
+        setMessage('Login realizado com sucesso!');
+
+        
+        navigate('/dashboard');
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
-      setMessage('Erro ao fazer login: ' + (error.response?.data?.message || 'Erro desconhecido'));
+        console.error('Erro ao fazer login:', error);
+        setMessage('Erro ao fazer login: ' + (error.response?.data?.message || 'Erro desconhecido'));
     }
-  };
+};
 
   return (
     <div>
