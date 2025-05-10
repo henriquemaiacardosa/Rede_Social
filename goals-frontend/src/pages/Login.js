@@ -13,11 +13,13 @@ function Login() {
     try {
       const response = await api.post('/auth/login', { email, password });
       
+      // Armazenar o token no localStorage
       localStorage.setItem('token', response.data.token);
 
       console.log('Login realizado com sucesso:', response.data);
       setMessage('Login realizado com sucesso!');
 
+      // Redirecionar para o dashboard
       navigate('/dashboard');
     } catch (error) {
       console.error('Erro ao fazer login:', error);

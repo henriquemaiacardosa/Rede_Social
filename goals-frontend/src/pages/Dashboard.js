@@ -1,17 +1,18 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import React from 'react';
 
-function App() {
+function Dashboard() {
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<Login />} />
-      </Routes>
-    </Router>
+    <div>
+      <h2>Dashboard</h2>
+      <p>Bem-vindo ao painel!</p>
+      <button onClick={handleLogout}>Sair</button>
+    </div>
   );
 }
 
-export default App;
+export default Dashboard;
