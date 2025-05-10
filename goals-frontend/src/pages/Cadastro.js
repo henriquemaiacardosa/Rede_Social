@@ -9,14 +9,28 @@ function Cadastro() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+  console.log('URL da API:', process.env.REACT_APP_API_URL);
+
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/usuarios', { name, email, password });
+      const response = await api.post('/usuarios', { name, email, password });
       setMessage('Cadastro realizado com sucesso!');
       navigate('/login');
     } catch (error) {
-      setMessage('Erro ao cadastrar: ' + error.response.data.message);
+      console.error('Erro ao cadastrar:', error);
+
+      // Verifica se há uma resposta do servidor
+      if (error.response) {
+        const errorMessage = error.response.data.message || 'Erro desconhecido';
+        setMessage('Erro ao cadastrar: ' + errorMessage);
+      } else if (error.request) {
+        // Erro na comunicação com o servidor
+        setMessage('Erro ao cadastrar: Servidor não respondeu.');
+      } else {
+        // Outro tipo de erro
+        setMessage('Erro ao cadastrar: ' + error.message);
+      }
     }
   };
 
