@@ -1,46 +1,40 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import api from '../services/api';
+import { supabase } from "../config/supabaseClient.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+dotenv.config();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await api.post('/auth/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/dashboard');
-    } catch (error) {
-      setMessage('Erro ao fazer login: ' + error.response.data.message);
-    }
-  };
+const JWT_SECRET = process.env.JWT_SECRET;
 
-  return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <input 
-          type="email" 
-          placeholder="Email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-        />
-        <input 
-          type="password" 
-          placeholder="Senha" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-        />
-        <button type="submit">Entrar</button>
-      </form>
-      {message && <p>{message}</p>}
-      <p>Não tem uma conta? <Link to="/cadastro">Cadastre-se aqui</Link></p>
-    </div>
+export const login = async (req, res) => {
+  const { email, senha } = req.body;
+
+  if (!email || !senha) {
+    return res.status(400).json({ error: "Email e senha são obrigatórios" });
+  }
+
+  const { data: usuario, error } = await supabase
+    .from("usuario")
+    .select("*")
+    .eq("email", email)
+    .single();
+
+  if (error || !usuario) {
+    return res.status(401).json({ error: "Usuário não encontrado" });
+  }
+
+  if (usuario.senha !== senha) {
+    return res.status(401).json({ error: "Senha incorreta" });
+  }
+
+  const token = jwt.sign(
+    {
+      id: usuario.id,
+      email: usuario.email
+    },
+    JWT_SECRET,
+    { expiresIn: "2h" }
   );
-}
 
-export default Login;
+  res.status(200).json({ message: "Login realizado com sucesso!", token });
+};
