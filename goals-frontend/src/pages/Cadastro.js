@@ -2,30 +2,34 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 
-function Login() {
+function Cadastro() {
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      // Enviando o campo correto "senha" para o backend
-      const response = await api.post('/auth/login', { email, senha });
-      localStorage.setItem('token', response.data.token);
-      setMessage('Login realizado com sucesso!');
-      navigate('/dashboard');
+      const response = await api.post('/usuarios', { nome, email, senha });
+      setMessage('Cadastro realizado com sucesso!');
+      navigate('/login');
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
-      setMessage('Erro ao fazer login: ' + (error.response?.data?.message || 'Erro desconhecido'));
+      setMessage('Erro ao cadastrar: ' + (error.response?.data?.message || 'Erro desconhecido'));
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <h2>Cadastro</h2>
+      <form onSubmit={handleRegister}>
+        <input
+          type="text"
+          placeholder="Nome"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        />
         <input
           type="email"
           placeholder="Email"
@@ -38,12 +42,12 @@ function Login() {
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
         />
-        <button type="submit">Entrar</button>
+        <button type="submit">Cadastrar</button>
       </form>
       {message && <p>{message}</p>}
-      <p>Não tem uma conta? <Link to="/cadastro">Cadastre-se aqui</Link></p>
+      <p>Já tem uma conta? <Link to="/login">Faça login</Link></p>
     </div>
   );
 }
 
-export default Login;
+export default Cadastro;

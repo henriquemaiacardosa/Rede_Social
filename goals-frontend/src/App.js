@@ -13,16 +13,8 @@ function App() {
   return (
     <Router>
       <div>
-        <nav>
-          {isAuthenticated && (
-            <>
-              <button onClick={() => window.location.href = '/dashboard'}>Início</button>
-              <button onClick={() => window.location.href = '/perfil'}>Perfil</button>
-              <button onClick={() => window.location.href = '/criar-meta'}>Criar Meta</button>
-            </>
-          )}
-        </nav>
         <Routes>
+          {/* Rota inicial redireciona para login se não autenticado */}
           <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />

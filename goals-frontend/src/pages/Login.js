@@ -4,32 +4,24 @@ import api from '../services/api';
 
 function Login() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await api.post('/auth/login', {
-      email: email,
-      senha: password 
-    });
-
-    localStorage.setItem('token', response.data.token);
-
-    console.log('Login realizado com sucesso:', response.data);
-    setMessage('Login realizado com sucesso!');
-
-    navigate('/home');
-  } catch (error) {
-    console.error('Erro ao fazer login:', error);
-    setMessage('Erro ao fazer login: ' + (error.response?.data?.message || 'Erro desconhecido'));
-  }
-};
+    e.preventDefault();
+    try {
+      const response = await api.post('/auth/login', { email, senha });
+      localStorage.setItem('token', response.data.token);
+      setMessage('Login realizado com sucesso!');
+      navigate('/dashboard');
+    } catch (error) {
+      setMessage('Erro ao fazer login: ' + (error.response?.data?.message || 'Erro desconhecido'));
+    }
+  };
 
   return (
-    <div>
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
@@ -41,8 +33,8 @@ function Login() {
         <input
           type="password"
           placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
         />
         <button type="submit">Entrar</button>
       </form>
