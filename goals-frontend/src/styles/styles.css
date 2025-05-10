@@ -1,0 +1,39 @@
+body {
+  background-color: #f0f8ff;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #005f9e;
+}
+
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  margin: auto;
+}
+
+input, button {
+  margin: 8px 0;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #005f9e;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #004a7c;
+}
+
+p, a {
+  color: #005f9e;
+}
