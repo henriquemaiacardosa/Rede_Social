@@ -1,21 +1,17 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 
-function Dashboard() {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
-
+function App() {
   return (
-    <div>
-      <h2>Painel Principal</h2>
-      <button onClick={handleLogout}>Sair</button>
-      <button onClick={() => navigate('/criar-meta')}>Criar Meta</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
-export default Dashboard;
+export default App;
