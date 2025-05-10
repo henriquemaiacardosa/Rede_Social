@@ -1,10 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   return (
     <div>
-      <h2>Bem-vindo ao seu painel!</h2>
-      <p>Esta é a página principal após o login.</p>
+      <h2>Painel Principal</h2>
+      <button onClick={handleLogout}>Sair</button>
+      <button onClick={() => navigate('/criar-meta')}>Criar Meta</button>
     </div>
   );
 }

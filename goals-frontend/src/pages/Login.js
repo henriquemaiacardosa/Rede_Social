@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 
 function Login() {
@@ -13,11 +13,9 @@ function Login() {
     try {
       const response = await api.post('/auth/login', { email, password });
       localStorage.setItem('token', response.data.token);
-      setMessage('Login bem-sucedido!');
       navigate('/dashboard');
     } catch (error) {
       setMessage('Erro ao fazer login: ' + error.response.data.message);
-      console.error('Erro:', error);
     }
   };
 
@@ -40,6 +38,7 @@ function Login() {
         <button type="submit">Entrar</button>
       </form>
       {message && <p>{message}</p>}
+      <p>Não tem uma conta? <Link to="/cadastro">Cadastre-se aqui</Link></p>
     </div>
   );
 }

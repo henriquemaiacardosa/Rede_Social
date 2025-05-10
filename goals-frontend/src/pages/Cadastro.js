@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 
 function Cadastro() {
@@ -6,19 +7,16 @@ function Cadastro() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setMessage(''); // Limpar mensagem anterior
-
     try {
-      console.log("Enviando dados:", { name, email, password });
-      const response = await api.post('/usuarios', { name, email, password });
-      setMessage('Usuário cadastrado com sucesso!');
-      console.log('Resposta do cadastro:', response.data);
+      await api.post('/usuarios', { name, email, password });
+      setMessage('Cadastro realizado com sucesso!');
+      navigate('/login');
     } catch (error) {
-      console.error('Erro ao cadastrar:', error.response ? error.response.data : error.message);
-      setMessage('Erro ao cadastrar: ' + (error.response ? error.response.data.message : error.message));
+      setMessage('Erro ao cadastrar: ' + error.response.data.message);
     }
   };
 
@@ -47,6 +45,7 @@ function Cadastro() {
         <button type="submit">Cadastrar</button>
       </form>
       {message && <p>{message}</p>}
+      <p>Já tem uma conta? <Link to="/login">Faça login</Link></p>
     </div>
   );
 }
