@@ -12,12 +12,11 @@ function Cadastro() {
   const handleRegister = async (e) => {
   e.preventDefault();
   try {
-    const response = await api.post('/auth/register', {  // Corrigido aqui
+    const response = await api.post('/usuarios', {  // CORRIGIDO
       nome: name,
       email: email,
       senha: password,
     });
-
     console.log('Cadastro realizado com sucesso:', response.data);
     setMessage('Cadastro realizado com sucesso!');
     navigate('/login');
@@ -26,6 +25,7 @@ function Cadastro() {
     setMessage('Erro ao cadastrar: ' + (error.response?.data?.message || 'Erro desconhecido'));
   }
 };
+
 
 
   return (
