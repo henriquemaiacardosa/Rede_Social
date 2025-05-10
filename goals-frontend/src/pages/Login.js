@@ -8,43 +8,41 @@ function Login() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
- const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await api.post('/auth/login', { 
-            email: email,
-            senha: password  
-        });
+  const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await api.post('/auth/login', {
+      email: email,
+      senha: password 
+    });
 
-        
-        localStorage.setItem('token', response.data.token);
+    localStorage.setItem('token', response.data.token);
 
-        console.log('Login realizado com sucesso:', response.data);
-        setMessage('Login realizado com sucesso!');
+    console.log('Login realizado com sucesso:', response.data);
+    setMessage('Login realizado com sucesso!');
 
-        
-        navigate('/dashboard');
-    } catch (error) {
-        console.error('Erro ao fazer login:', error);
-        setMessage('Erro ao fazer login: ' + (error.response?.data?.message || 'Erro desconhecido'));
-    }
+    navigate('/home');
+  } catch (error) {
+    console.error('Erro ao fazer login:', error);
+    setMessage('Erro ao fazer login: ' + (error.response?.data?.message || 'Erro desconhecido'));
+  }
 };
 
   return (
     <div>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <input 
-          type="email" 
-          placeholder="Email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        <input 
-          type="password" 
-          placeholder="Senha" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
+        <input
+          type="password"
+          placeholder="Senha"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Entrar</button>
       </form>
