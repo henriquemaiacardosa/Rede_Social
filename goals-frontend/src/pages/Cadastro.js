@@ -3,9 +3,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 
 function Cadastro() {
-  const [name, setName] = useState('');
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
@@ -15,11 +15,14 @@ function Cadastro() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      // Enviando os dados no formato correto
+      // Log para verificar os dados antes do envio
+      console.log('Dados enviados:', { nome, email, senha });
+
+      // Enviando os dados no formato correto para o backend
       const response = await api.post('/usuarios', {
-        name: name,
+        nome: nome,
         email: email,
-        password: password,
+        senha: senha,
       });
 
       console.log('Resposta do cadastro:', response.data);
@@ -29,14 +32,13 @@ function Cadastro() {
       console.error('Erro ao cadastrar:', error);
 
       if (error.response) {
-        // Verifica se há uma mensagem de erro específica
-        const errorMessage = error.response.data.message || 'Erro desconhecido';
+        // Verificar a resposta detalhada do erro
+        console.error('Erro detalhado:', error.response.data);
+        const errorMessage = error.response.data.error || 'Erro desconhecido';
         setMessage('Erro ao cadastrar: ' + errorMessage);
       } else if (error.request) {
-        // Erro na comunicação com o servidor
         setMessage('Erro ao cadastrar: Servidor não respondeu.');
       } else {
-        // Outro tipo de erro
         setMessage('Erro ao cadastrar: ' + error.message);
       }
     }
@@ -50,9 +52,10 @@ function Cadastro() {
           <input 
             type="text" 
             placeholder="Nome" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
+            value={nome} 
+            onChange={(e) => setNome(e.target.value)} 
             style={{ margin: '5px', padding: '8px', width: '250px' }}
+            required
           />
         </div>
         <div>
@@ -62,15 +65,17 @@ function Cadastro() {
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
             style={{ margin: '5px', padding: '8px', width: '250px' }}
+            required
           />
         </div>
         <div>
           <input 
             type="password" 
             placeholder="Senha" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
+            value={senha} 
+            onChange={(e) => setSenha(e.target.value)} 
             style={{ margin: '5px', padding: '8px', width: '250px' }}
+            required
           />
         </div>
         <button 
