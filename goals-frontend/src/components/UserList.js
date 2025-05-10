@@ -6,14 +6,14 @@ function UserList() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    console.log("🚀 Fazendo requisição para buscar usuários...");
+    console.log("Fazendo requisição para buscar usuários...");
     api.get('/usuarios')
       .then((response) => {
         console.log("✅ Usuários recebidos:", response.data);
         setUsers(response.data);
       })
       .catch((error) => {
-        console.error("❌ Erro ao buscar usuários:", error.message);
+        console.error("Erro ao buscar usuários:", error.message);
         setError(error.message);
       });
   }, []);
