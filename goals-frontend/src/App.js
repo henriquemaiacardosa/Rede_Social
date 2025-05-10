@@ -13,11 +13,19 @@ function App() {
   return (
     <Router>
       <div>
+        <nav>
+          {isAuthenticated && (
+            <>
+              <button onClick={() => window.location.href = '/dashboard'}>Início</button>
+              <button onClick={() => window.location.href = '/perfil'}>Perfil</button>
+              <button onClick={() => window.location.href = '/criar-meta'}>Criar Meta</button>
+            </>
+          )}
+        </nav>
         <Routes>
-          <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/login" />} />
+          <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
           <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
           <Route path="/perfil" element={isAuthenticated ? <Perfil /> : <Navigate to="/login" />} />
           <Route path="/criar-meta" element={isAuthenticated ? <CriarMeta /> : <Navigate to="/login" />} />

@@ -2,16 +2,16 @@ import { supabase } from "../config/supabaseClient.js";
 
 
 export const createGoal = async (req, res) => {
-  const { titulo, descricao, data_criacao } = req.body;
-  const usuario_id = req.usuario.id; 
+  const { titulo, descricao } = req.body;
+  const usuario_id = req.usuario.id;
 
-  if (!titulo || !descricao || !data_criacao) {
+  if (!titulo || !descricao) {
     return res.status(400).json({ error: "Todos os campos são obrigatórios" });
   }
 
   const { data, error } = await supabase
     .from("meta")
-    .insert([{ titulo, descricao, data_criacao, usuario_id }])
+    .insert([{ titulo, descricao, usuario_id }])
     .select();
 
   if (error) {
@@ -21,7 +21,7 @@ export const createGoal = async (req, res) => {
   res.status(201).json({ message: "Meta criada com sucesso!", data });
 };
 
-// 🔍 Listar todas as metas
+// 🔍 Listar todas as metas (público)
 export const getGoals = async (req, res) => {
   const { data, error } = await supabase.from("meta").select("*");
 
@@ -32,7 +32,23 @@ export const getGoals = async (req, res) => {
   res.json(data);
 };
 
-//  Buscar meta por ID
+// 📝 Listar metas do usuário logado
+export const getUserGoals = async (req, res) => {
+  const usuario_id = req.usuario.id;
+
+  const { data, error } = await supabase
+    .from("meta")
+    .select("*")
+    .eq("usuario_id", usuario_id);
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json(data);
+};
+
+// 🔎 Buscar meta por ID
 export const getGoalById = async (req, res) => {
   const { id } = req.params;
 
@@ -49,14 +65,14 @@ export const getGoalById = async (req, res) => {
   res.json(data);
 };
 
-//  Atualizar meta
+// 📝 Atualizar meta
 export const updateGoal = async (req, res) => {
   const { id } = req.params;
-  const { titulo, descricao, data_criacao } = req.body;
+  const { titulo, descricao } = req.body;
 
   const { data, error } = await supabase
     .from("meta")
-    .update({ titulo, descricao, data_criacao })
+    .update({ titulo, descricao })
     .eq("id", id)
     .select();
 

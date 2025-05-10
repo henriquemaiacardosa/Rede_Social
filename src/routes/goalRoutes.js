@@ -4,16 +4,16 @@ import {
   getGoals,
   getGoalById,
   updateGoal,
-  deleteGoal
+  deleteGoal,
+  getUserGoals
 } from "../controllers/goalController.js";
-
 import { autenticarToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Proteger criação de metas
 router.post("/", autenticarToken, createGoal);
-router.get("/", getGoals); // público
+router.get("/", getGoals); // Público - Lista todas as metas
+router.get("/user", autenticarToken, getUserGoals); // Lista metas do usuário logado
 router.get("/:id", getGoalById);
 router.put("/:id", autenticarToken, updateGoal);
 router.delete("/:id", autenticarToken, deleteGoal);
