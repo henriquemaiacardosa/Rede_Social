@@ -1,40 +1,59 @@
-import { supabase } from "../config/supabaseClient.js";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import api from '../services/api';
 
-dotenv.config();
+function Login() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
-const JWT_SECRET = process.env.JWT_SECRET;
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      console.log('Dados enviados para login:', { email, senha });
 
-export const login = async (req, res) => {
-  const { email, senha } = req.body;
+      // Envia os dados corretamente
+      const response = await api.post('/auth/login', { email, senha });
+      console.log('Resposta do login:', response.data);
 
-  if (!email || !senha) {
-    return res.status(400).json({ error: "Email e senha são obrigatórios" });
-  }
+      localStorage.setItem('token', response.data.token);
+      setMessage('Login realizado com sucesso!');
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
 
-  const { data: usuario, error } = await supabase
-    .from("usuario")
-    .select("*")
-    .eq("email", email)
-    .single();
+      if (error.response) {
+        const errorMessage = error.response.data.error || 'Erro desconhecido';
+        setMessage('Erro ao fazer login: ' + errorMessage);
+      } else {
+        setMessage('Erro ao fazer login: Servidor não respondeu.');
+      }
+    }
+  };
 
-  if (error || !usuario) {
-    return res.status(401).json({ error: "Usuário não encontrado" });
-  }
-
-  if (usuario.senha !== senha) {
-    return res.status(401).json({ error: "Senha incorreta" });
-  }
-
-  const token = jwt.sign(
-    {
-      id: usuario.id,
-      email: usuario.email
-    },
-    JWT_SECRET,
-    { expiresIn: "2h" }
+  return (
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <input 
+          type="email" 
+          placeholder="Email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+        />
+        <input 
+          type="password" 
+          placeholder="Senha" 
+          value={senha} 
+          onChange={(e) => setSenha(e.target.value)} 
+        />
+        <button type="submit">Entrar</button>
+      </form>
+      {message && <p>{message}</p>}
+      <p>Não tem uma conta? <Link to="/cadastro">Cadastre-se aqui</Link></p>
+    </div>
   );
+}
 
-  res.status(200).json({ message: "Login realizado com sucesso!", token });
-};
+export default Login;
