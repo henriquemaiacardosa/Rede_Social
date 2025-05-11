@@ -1,6 +1,6 @@
 import { supabase } from "../config/supabaseClient.js";
 
-// Cria um comentário
+
 export const createComment = async (req, res) => {
     const { usuario_id, meta_id, conteudo, data_criacao } = req.body;
 

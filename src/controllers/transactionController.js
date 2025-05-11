@@ -9,14 +9,13 @@ export const comentarEAtualizarMeta = async (req, res) => {
   }
 
   try {
-    //  Criar comentário
+    
     const { error: commentError } = await supabase
       .from("comentario")
       .insert([{ conteudo, usuario_id, meta_id }]);
 
     if (commentError) throw commentError;
 
-    // Chamar a função do Supabase para incrementar contador
     const { error: updateError } = await supabase
       .rpc("incrementa_comentarios", { metaid: meta_id });
 

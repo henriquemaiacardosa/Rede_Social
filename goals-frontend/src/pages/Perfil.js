@@ -6,11 +6,16 @@ function Perfil() {
 
   const fetchUserMetas = async () => {
     try {
-      const response = await api.get('/metas/user');
+      const response = await api.get('/goals/user');
       setMetas(response.data);
     } catch (error) {
       console.error('Erro ao carregar metas do usuário:', error);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
   };
 
   useEffect(() => {
@@ -19,7 +24,8 @@ function Perfil() {
 
   return (
     <div>
-      <h2>Minhas Metas</h2>
+      <h2>Perfil - Minhas Metas</h2>
+      <button onClick={handleLogout} style={{ margin: '10px' }}>Sair</button>
       <ul>
         {metas.map((meta) => (
           <li key={meta.id}>{meta.titulo}</li>

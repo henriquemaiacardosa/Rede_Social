@@ -1,6 +1,5 @@
 import { supabase } from "../config/supabaseClient.js";
 
-
 export const createGoal = async (req, res) => {
   const { titulo, descricao } = req.body;
   const usuario_id = req.usuario.id;
@@ -21,7 +20,6 @@ export const createGoal = async (req, res) => {
   res.status(201).json({ message: "Meta criada com sucesso!", data });
 };
 
-// 🔍 Listar todas as metas (público)
 export const getGoals = async (req, res) => {
   const { data, error } = await supabase.from("meta").select("*");
 
@@ -32,7 +30,6 @@ export const getGoals = async (req, res) => {
   res.json(data);
 };
 
-// 📝 Listar metas do usuário logado
 export const getUserGoals = async (req, res) => {
   const usuario_id = req.usuario.id;
 
@@ -48,7 +45,6 @@ export const getUserGoals = async (req, res) => {
   res.json(data);
 };
 
-// 🔎 Buscar meta por ID
 export const getGoalById = async (req, res) => {
   const { id } = req.params;
 
@@ -65,7 +61,6 @@ export const getGoalById = async (req, res) => {
   res.json(data);
 };
 
-// 📝 Atualizar meta
 export const updateGoal = async (req, res) => {
   const { id } = req.params;
   const { titulo, descricao } = req.body;
@@ -83,7 +78,6 @@ export const updateGoal = async (req, res) => {
   res.json({ message: "Meta atualizada com sucesso", data });
 };
 
-// 🗑️ Deletar meta
 export const deleteGoal = async (req, res) => {
   const { id } = req.params;
 

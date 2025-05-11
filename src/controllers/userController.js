@@ -35,10 +35,10 @@ export const getUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
     const { id } = req.params;
-    console.log("ID recebido:", id); // Log para debug
+    console.log("ID recebido:", id); 
 
     const { data, error } = await supabase
-        .from("usuario") // Verifique se o nome da tabela está correto
+        .from("usuario") 
         .select("*")
         .eq("id", id)
         .single(); 
