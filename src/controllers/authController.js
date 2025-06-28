@@ -35,3 +35,33 @@ export const login = async (req, res) => {
 
   res.status(200).json({ message: "Login realizado com sucesso!", token });
 };
+
+export const registerUser = async (req, res) => {
+  const { nome, email, senha } = req.body;
+
+  if (!nome || !email || !senha) {
+    return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+  }
+
+  // Verifica se o e-mail já está cadastrado
+  const { data: existente } = await supabase
+    .from("usuario")
+    .select("*")
+    .eq("email", email)
+    .single();
+
+  if (existente) {
+    return res.status(409).json({ error: "E-mail já cadastrado." });
+  }
+
+  // Cria novo usuário
+  const { error } = await supabase
+    .from("usuario")
+    .insert([{ nome, email, senha }]);
+
+  if (error) {
+    return res.status(500).json({ error: "Erro ao cadastrar usuário." });
+  }
+
+  res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
+};
