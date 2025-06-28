@@ -1,5 +1,6 @@
 import { supabase } from "../config/supabaseClient.js";
 
+// ✅ Criar nova meta
 export const createGoal = async (req, res) => {
   const { titulo, descricao } = req.body;
   const usuario_id = req.usuario.id;
@@ -21,15 +22,38 @@ export const createGoal = async (req, res) => {
 };
 
 export const getGoals = async (req, res) => {
-  const { data, error } = await supabase.from("meta").select("*");
+  try {
+    const { data: metas, error: metasError } = await supabase
+      .from("meta")
+      .select(`
+        *,
+        usuario (nome)
+      `)
+      .order("data_criacao", { ascending: false });
 
-  if (error) {
-    return res.status(500).json({ error: error.message });
+    if (metasError) throw metasError;
+
+    const metasComIncentivos = await Promise.all(
+      metas.map(async (meta) => {
+        const { count, error: countError } = await supabase
+          .from("incentivo")
+          .select("*", { count: "exact", head: true })
+          .eq("meta_id", meta.id);
+
+        return {
+          ...meta,
+          incentivos: count || 0,
+        };
+      })
+    );
+
+    res.status(200).json(metasComIncentivos);
+  } catch (error) {
+    console.error("Erro ao buscar metas:", error.message);
+    res.status(500).json({ message: "Erro interno ao buscar metas." });
   }
-
-  res.json(data);
 };
-
+// ✅ Buscar metas do usuário logado
 export const getUserGoals = async (req, res) => {
   const usuario_id = req.usuario.id;
 
@@ -45,6 +69,7 @@ export const getUserGoals = async (req, res) => {
   res.json(data);
 };
 
+// ✅ Buscar meta por ID
 export const getGoalById = async (req, res) => {
   const { id } = req.params;
 
@@ -61,6 +86,7 @@ export const getGoalById = async (req, res) => {
   res.json(data);
 };
 
+// ✅ Atualizar meta
 export const updateGoal = async (req, res) => {
   const { id } = req.params;
   const { titulo, descricao } = req.body;
@@ -78,6 +104,7 @@ export const updateGoal = async (req, res) => {
   res.json({ message: "Meta atualizada com sucesso", data });
 };
 
+// ✅ Deletar meta
 export const deleteGoal = async (req, res) => {
   const { id } = req.params;
 

@@ -9,7 +9,7 @@ export const autenticarToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.usuario = decoded;
+    req.usuario = { id: decoded.id }; // ✅ ESSENCIAL
     next();
   } catch (error) {
     res.status(403).json({ error: "Token inválido" });

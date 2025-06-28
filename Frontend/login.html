@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/login.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Login</title>
+  </head>
+  <body>
+    <main>
+      <h1>GOALS</h1>
+      <form id="formLogin">
+        <div class="field">
+          <strong>E-mail</strong>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="seuemail@gmail.com"
+          />
+        </div>
+        <div class="field">
+          <strong>Senha</strong>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="*******"
+          />
+        </div>
+        <div class="btn-actions">
+          <button type="submit">Entrar</button>
+          <a href="cadastro.html">Cadastrar</a>
+        </div>
+      </form>
+    </main>
+
+    <script type="module" src="Controllers/login.js"></script>
+
+  </body>
+</html>

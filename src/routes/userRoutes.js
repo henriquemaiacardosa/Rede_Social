@@ -1,4 +1,3 @@
-
 import express from "express";
 import {
   createUser,
@@ -7,13 +6,14 @@ import {
   updateUser,
   deleteUser
 } from "../controllers/userController.js";
+import { autenticarToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", createUser);
-router.get("/", getUsers);
-router.get("/:id", getUserById);
-router.put("/:id", updateUser);
-router.delete("/:id", deleteUser);
+router.post("/", autenticarToken, createUser); // opcional
+router.get("/", autenticarToken, getUsers);     // proteger listagem
+router.get("/:id", autenticarToken, getUserById);
+router.put("/:id", autenticarToken, updateUser);
+router.delete("/:id", autenticarToken, deleteUser);
 
 export default router;

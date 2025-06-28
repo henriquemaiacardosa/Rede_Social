@@ -2,24 +2,26 @@ import { supabase } from "../config/supabaseClient.js";
 
 
 export const createComment = async (req, res) => {
-    const { usuario_id, meta_id, conteudo, data_criacao } = req.body;
+  const usuario_id = req.usuario.id;
+  const { meta_id, conteudo, data_criacao } = req.body;
 
-    if (!usuario_id || !meta_id || !conteudo) {
-        return res.status(400).json({ error: "Todos os campos são obrigatórios" });
-    }
+  if (!meta_id || !conteudo) {
+    return res.status(400).json({ error: "Todos os campos são obrigatórios" });
+  }
 
-    const { data, error } = await supabase
-        .from("comentario")
-        .insert([{ usuario_id, meta_id, conteudo, data_criacao }])
-        .select();
+  const { data, error } = await supabase
+    .from("comentario")
+    .insert([{ usuario_id, meta_id, conteudo, data_criacao }])
+    .select();
 
-    if (error) {
-        console.error("Erro ao criar comentário:", error);
-        return res.status(500).json({ error: error.message });
-    }
+  if (error) {
+    console.error("Erro ao criar comentário:", error);
+    return res.status(500).json({ error: error.message });
+  }
 
-    res.status(201).json({ message: "Comentário criado com sucesso", data });
+  res.status(201).json({ message: "Comentário criado com sucesso", data });
 };
+
 
 // Lista todos os comentários
 export const getComments = async (req, res) => {

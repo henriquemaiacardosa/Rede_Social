@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/style.css">
+  <title>GOALS</title>
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <!-- Logo GOALS -->
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo GOALS" class="logo">
+        <h1>GOALS</h1>
+      </div>
+
+      <!-- Botões de Navegação -->
+      <div class="nav-buttons">
+        <button onclick="window.location.href='profile.html'" class="btn-nav">Perfil</button>
+        <button id="logoutBtn" class="btn-snav">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Formulário de postagem -->
+    <div class="newPost">
+      <div class="infoUser">
+        <div class="imgUser">
+          <!-- Imagem do Usuário -->
+        </div>
+        <strong id="userName">Nome do usuário</strong>
+      </div>
+
+      <form id="formPost" class="formPost">
+        <textarea name="textarea" placeholder="Escreva sua meta!" id="textarea"></textarea>
+        <div class="iconsAndButton">
+          <button type="submit" id="botao" class="btnSubmitForm">Publicar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Lista de Posts -->
+    <ul class="posts" id="posts"></ul>
+
+  </main>
+<div id="toast" class="toast hidden"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="Controllers/index.js"></script>
+</body>
+
+</html>

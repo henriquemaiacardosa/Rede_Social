@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/login.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Cadastro - GOALS</title>
+  </head>
+  <body>
+    <main>
+      <!-- Logo da GOALS -->
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo GOALS" class="logo" />
+      </div>
+
+      <h1>Cadastro</h1>
+      <form id="formCadastro">
+        <div class="field">
+          <label for="name"><strong>Nome</strong></label>
+          <input type="text" name="name" id="name" placeholder="Digite seu nome..." />
+        </div>
+        <div class="field">
+          <label for="email"><strong>E-mail</strong></label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="seuemail@gmail.com"
+          />
+        </div>
+        <div class="field">
+          <label for="password"><strong>Senha</strong></label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="*******"
+          />
+        </div>
+        <div class="field">
+          <label for="repeat-password"><strong>Repita a senha</strong></label>
+          <input
+            type="password"
+            name="repeat-password"
+            id="repeat-password"
+            placeholder="*******"
+          />
+        </div>
+        <div class="btn-actions">
+          <button type="submit">Criar Conta</button>
+          <a href="login.html">Voltar</a>
+        </div>
+      </form>
+      <script type="module" src="/Frontend/Controllers/cadastro.js"></script>
+    </main>
+  </body>
+</html>
