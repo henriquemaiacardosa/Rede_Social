@@ -172,7 +172,9 @@ function renderizarMeta(meta) {
       <p>${meta.descricao}</p>
       <small>Incentivos: <span id="incentivo-count-${meta.id}">${meta.incentivos || 0}</span></small>
       <br />
-      <button class="btn-apoiar" data-meta-id="${meta.id}">Apoiar</button>
+      <button class="btn-apoiar" data-meta-id="${meta.id}">
+        <img src="/apoio.svg" alt="Incentivo" width="16" style="vertical-align: middle; margin-right: 4px;" />
+        </button>
 
       <form class="form-comentario" data-meta-id="${meta.id}">
         <input type="text" class="comentario-input" placeholder="Escreva um comentário..." required />
