@@ -4,18 +4,21 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // Limpa mensagens anteriores
+    document.getElementById("mensagemErro").classList.add("hidden");
+
     const nome = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const senha = document.getElementById("password").value.trim();
     const repetirSenha = document.getElementById("repeat-password").value.trim();
 
     if (!nome || !email || !senha || !repetirSenha) {
-      alert("Preencha todos os campos.");
+      mostrarMensagemErro("Preencha todos os campos.");
       return;
     }
 
     if (senha !== repetirSenha) {
-      alert("As senhas não coincidem.");
+      mostrarMensagemErro("As senhas não coincidem.");
       return;
     }
 
@@ -29,14 +32,39 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Erro ao cadastrar");
+        mostrarMensagemErro(data.error || "Erro ao cadastrar");
+        return;
       }
 
-      alert("Cadastro realizado com sucesso!");
-      window.location.href = "login.html";
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1500);
 
     } catch (err) {
-      alert("Erro: " + err.message);
+      mostrarToast("Erro: " + err.message);
+      mostrarMensagemErro("Erro: " + err.message);
     }
   });
 });
+
+// Toast no canto da tela
+function mostrarToast(mensagem, tipo = "error") {
+  const toast = document.getElementById("toast");
+  toast.className = `toast ${tipo}`;
+  toast.textContent = mensagem;
+  toast.classList.add("show");
+  toast.classList.remove("hidden");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    toast.classList.add("hidden");
+  }, 3000);
+}
+
+// Mensagem abaixo do botão
+function mostrarMensagemErro(mensagem) {
+  const erro = document.getElementById("mensagemErro");
+  erro.textContent = mensagem;
+  erro.classList.remove("hidden");
+}

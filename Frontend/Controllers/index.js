@@ -40,12 +40,12 @@ logoutBtn.addEventListener("click", () => {
   window.location.href = "login.html";
 });
 
+// =================== USUÁRIO ===================
+
 async function carregarUsuario() {
   try {
     const response = await fetch(`http://localhost:3000/api/users/${usuarioId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     if (!response.ok) throw new Error("Usuário não encontrado.");
@@ -58,14 +58,60 @@ async function carregarUsuario() {
   }
 }
 
+// =================== MODAL EXCLUSÃO COMENTÁRIO ===================
+
+let comentarioIdParaExcluir = null;
+let metaIdParaAtualizar = null;
+
+function ativarModalExclusaoComentario(id, metaId) {
+  comentarioIdParaExcluir = id;
+  metaIdParaAtualizar = metaId;
+
+  document.getElementById("modalExcluirComentario").classList.remove("hidden");
+}
+
+document.getElementById("confirmarExcluirComentario").onclick = async () => {
+  if (!comentarioIdParaExcluir) return;
+  try {
+    await fetch(`http://localhost:3000/api/comment/${comentarioIdParaExcluir}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    document.getElementById("modalExcluirComentario").classList.add("hidden");
+    await carregarComentarios(metaIdParaAtualizar);
+  } catch (err) {
+    mostrarToast("Erro ao excluir comentário", "error");
+  }
+};
+
+document.getElementById("cancelarExcluirComentario").onclick = () => {
+  document.getElementById("modalExcluirComentario").classList.add("hidden");
+};
+
 // =================== COMENTÁRIOS ===================
 
 function renderizarComentarios(metaId, comentarios, container) {
   container.innerHTML = "";
   comentarios.forEach((comentario) => {
     const li = document.createElement("li");
-    li.textContent = comentario.conteudo;
+    li.innerHTML = `
+      ${comentario.conteudo}
+      ${
+        comentario.usuario_id === usuarioId
+          ? `<button class="btn-excluir-comentario" data-id="${comentario.id}" data-meta="${metaId}">🗑</button>`
+          : ""
+      }
+    `;
     container.appendChild(li);
+  });
+
+  document.querySelectorAll(".btn-excluir-comentario").forEach((btn) => {
+    btn.onclick = () => {
+      const id = btn.getAttribute("data-id");
+      const metaId = btn.getAttribute("data-meta");
+      ativarModalExclusaoComentario(id, metaId);
+    };
   });
 }
 
@@ -84,9 +130,8 @@ async function carregarComentarios(metaId) {
 
 function ativarEnvioDeComentarios() {
   document.querySelectorAll(".form-comentario").forEach((form) => {
-    form.addEventListener("submit", async (e) => {
+    form.onsubmit = async (e) => {
       e.preventDefault();
-      const token = localStorage.getItem("token");
       const metaId = form.getAttribute("data-meta-id");
       const input = form.querySelector(".comentario-input");
       const conteudo = input.value.trim();
@@ -94,7 +139,7 @@ function ativarEnvioDeComentarios() {
       if (!conteudo) return;
 
       try {
-        const response = await fetch("http://localhost:3000/api/comments", {
+        const response = await fetch("http://localhost:3000/api/comment", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -107,16 +152,15 @@ function ativarEnvioDeComentarios() {
         if (!response.ok) throw new Error(data.error);
 
         input.value = "";
-        const comentariosContainer = document.getElementById(`comentarios-${metaId}`);
-        const novoComentario = document.createElement("li");
-        novoComentario.textContent = conteudo;
-        comentariosContainer.appendChild(novoComentario);
+        await carregarComentarios(metaId);
       } catch (err) {
-        alert("Erro ao comentar: " + err.message);
+        mostrarToast("Erro ao comentar: " + err.message);
       }
-    });
+    };
   });
 }
+
+// =================== METAS ===================
 
 function renderizarMeta(meta) {
   const li = document.createElement("li");
@@ -158,17 +202,15 @@ function renderizarMeta(meta) {
       if (!response.ok) throw new Error(data.error || "Erro ao incentivar");
 
       const countSpan = document.getElementById(`incentivo-count-${meta.id}`);
-      const novoValor = parseInt(countSpan.innerText) + 1;
-      countSpan.innerText = novoValor;
+      countSpan.innerText = parseInt(countSpan.innerText) + 1;
 
       btn.disabled = true;
       btn.innerText = "Apoiado!";
     } catch (err) {
-mostrarToast("Você já apoiou esta meta", "error");    }
+      mostrarToast("Você já apoiou esta meta", "error");
+    }
   });
 }
-
-// =================== METAS ===================
 
 async function carregarMetas() {
   try {
@@ -186,20 +228,17 @@ async function carregarMetas() {
     }
 
     postsContainer.innerHTML = "";
-
-    metas.forEach((meta) => {
-      renderizarMeta(meta);
-    });
+    metas.forEach((meta) => renderizarMeta(meta));
   } catch (err) {
     console.error("Erro ao carregar metas:", err.message);
   }
 }
 
-// Publicar nova meta
+// =================== NOVA META ===================
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const texto = textarea.value.trim();
-
   if (!texto) return;
 
   try {
@@ -209,22 +248,17 @@ form.addEventListener("submit", async (e) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        titulo: "Meta",
-        descricao: texto,
-      }),
+      body: JSON.stringify({ titulo: "Meta", descricao: texto }),
     });
 
     textarea.value = "";
-    await carregarMetas(); // Recarrega o feed após publicar
+    await carregarMetas();
   } catch (err) {
     console.error("Erro ao publicar meta:", err.message);
   }
 });
 
-// Inicialização
-carregarUsuario();
-carregarMetas();
+// =================== TOAST ===================
 
 function mostrarToast(mensagem, tipo = "error") {
   const toast = document.getElementById("toast");
@@ -239,5 +273,6 @@ function mostrarToast(mensagem, tipo = "error") {
   }, 3000);
 }
 
-
-
+// Inicialização
+carregarUsuario();
+carregarMetas();

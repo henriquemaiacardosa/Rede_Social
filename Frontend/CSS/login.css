@@ -91,3 +91,25 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+.mensagem-erro {
+  margin-top: 16px;
+  color: #e74c3c;
+  background-color: #fdecea;
+  border: 1px solid #f5c6cb;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  max-width: 300px;
+  text-align: center;
+  animation: fadein 0.3s ease-in-out;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+  display: none;
+}
