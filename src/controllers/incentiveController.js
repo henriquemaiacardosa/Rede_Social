@@ -1,6 +1,5 @@
 import { supabase } from "../config/supabaseClient.js";
 
-// Criar incentivo (protegido contra duplicação)
 export const createIncentive = async (req, res) => {
   const { meta_id } = req.body;
   const usuario_id = req.usuario.id;
@@ -9,7 +8,6 @@ export const createIncentive = async (req, res) => {
     return res.status(400).json({ error: "meta_id é obrigatório" });
   }
 
-  // Verifica se já existe incentivo
   const { data: existente, error: errorBusca } = await supabase
     .from("incentivo")
     .select("*")
@@ -38,7 +36,6 @@ export const createIncentive = async (req, res) => {
   res.status(201).json({ message: "Incentivo criado com sucesso", data });
 };
 
-// Listar todos os incentivos
 export const getIncentives = async (req, res) => {
   const { data, error } = await supabase
     .from("incentivo")
@@ -52,7 +49,6 @@ export const getIncentives = async (req, res) => {
   res.json(data);
 };
 
-// Buscar incentivos por meta
 export const getIncentivesByMeta = async (req, res) => {
   const { meta_id } = req.params;
 
@@ -69,7 +65,6 @@ export const getIncentivesByMeta = async (req, res) => {
   res.json(data);
 };
 
-// Deletar incentivo (opcional)
 export const deleteIncentive = async (req, res) => {
   const { id } = req.params;
 

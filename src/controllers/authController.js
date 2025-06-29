@@ -43,7 +43,6 @@ export const registerUser = async (req, res) => {
     return res.status(400).json({ error: "Todos os campos são obrigatórios." });
   }
 
-  // Verifica se o e-mail já está cadastrado
   const { data: existente } = await supabase
     .from("usuario")
     .select("*")
@@ -54,7 +53,6 @@ export const registerUser = async (req, res) => {
     return res.status(409).json({ error: "E-mail já cadastrado." });
   }
 
-  // Cria novo usuário
   const { error } = await supabase
     .from("usuario")
     .insert([{ nome, email, senha }]);

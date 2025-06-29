@@ -8,8 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const senha = document.getElementById("password").value.trim();
 
     if (!email || !senha) {
-      // Exibe erro na tela se quiser, mas não usa alert
-      console.error("Preencha todos os campos.");
+      const alerta = document.getElementById("alertaErro");
+      alerta.textContent = "Preencha todos os campos.";
+      alerta.style.display = "block";
+
+      setTimeout(() => {
+        alerta.style.display = "none";
+      }, 4000);
       return;
     }
 
@@ -23,12 +28,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await response.json();
 
       if (!response.ok) {
-        console.error(data.error || "Erro ao fazer login");
+        const alerta = document.getElementById("alertaErro");
+        alerta.textContent = data.error || "Usuário não encontrado!";
+        alerta.style.display = "block";
+
+        setTimeout(() => {
+          alerta.style.display = "none";
+        }, 4000);
+        
         return;
       }
 
       localStorage.setItem("token", data.token);
-      window.location.href = "index.html"; // redireciona para o painel
+      window.location.href = "index.html"; 
     } catch (err) {
       console.error("Erro de rede: ", err.message);
     }

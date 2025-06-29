@@ -6,7 +6,7 @@ import {
   updateComment,
   deleteComment
 } from "../controllers/commentController.js";
-import { autenticarToken } from "../middleware/authMiddleware.js"; // ou default
+import { autenticarToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 

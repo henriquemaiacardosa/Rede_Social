@@ -1,6 +1,5 @@
 import { supabase } from "../config/supabaseClient.js";
 
-// ✅ Criar nova meta
 export const createGoal = async (req, res) => {
   const { titulo, descricao } = req.body;
   const usuario_id = req.usuario.id;
@@ -53,7 +52,6 @@ export const getGoals = async (req, res) => {
     res.status(500).json({ message: "Erro interno ao buscar metas." });
   }
 };
-// ✅ Buscar metas do usuário logado
 export const getUserGoals = async (req, res) => {
   const usuario_id = req.usuario.id;
 
@@ -69,7 +67,6 @@ export const getUserGoals = async (req, res) => {
   res.json(data);
 };
 
-// ✅ Buscar meta por ID
 export const getGoalById = async (req, res) => {
   const { id } = req.params;
 
@@ -86,7 +83,6 @@ export const getGoalById = async (req, res) => {
   res.json(data);
 };
 
-// ✅ Atualizar meta
 export const updateGoal = async (req, res) => {
   const { id } = req.params;
   const { titulo, descricao } = req.body;
@@ -104,7 +100,6 @@ export const updateGoal = async (req, res) => {
   res.json({ message: "Meta atualizada com sucesso", data });
 };
 
-// ✅ Deletar meta
 export const deleteGoal = async (req, res) => {
   const { id } = req.params;
 

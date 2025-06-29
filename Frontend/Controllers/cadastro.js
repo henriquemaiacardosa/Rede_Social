@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Limpa mensagens anteriores
     document.getElementById("mensagemErro").classList.add("hidden");
 
     const nome = document.getElementById("name").value.trim();
@@ -48,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Toast no canto da tela
 function mostrarToast(mensagem, tipo = "error") {
   const toast = document.getElementById("toast");
   toast.className = `toast ${tipo}`;
@@ -62,7 +60,6 @@ function mostrarToast(mensagem, tipo = "error") {
   }, 3000);
 }
 
-// Mensagem abaixo do botão
 function mostrarMensagemErro(mensagem) {
   const erro = document.getElementById("mensagemErro");
   erro.textContent = mensagem;

@@ -5,20 +5,17 @@ const userName = document.getElementById("userName");
 const logoutBtn = document.getElementById("logoutBtn");
 
 const token = localStorage.getItem("token");
-
-if (!token) {
-  window.location.href = "login.html";
-}
+if (!token) window.location.href = "login.html";
 
 function parseJwt(token) {
   try {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
     const jsonPayload = decodeURIComponent(
       atob(base64)
-        .split('')
-        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
+        .split("")
+        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+        .join("")
     );
     return JSON.parse(jsonPayload);
   } catch (err) {
@@ -28,7 +25,6 @@ function parseJwt(token) {
 
 const payload = parseJwt(token);
 const usuarioId = payload?.id;
-
 if (!usuarioId) {
   alert("Token inválido. Faça login novamente.");
   localStorage.removeItem("token");
@@ -40,33 +36,34 @@ logoutBtn.addEventListener("click", () => {
   window.location.href = "login.html";
 });
 
-// =================== USUÁRIO ===================
+// =================== VARIÁVEL GLOBAL DO NOME ===================
+let nomeUsuarioLogado = "Usuário";
 
 async function carregarUsuario() {
   try {
-    const response = await fetch(`http://localhost:3000/api/users/${usuarioId}`, {
+    const response = await fetch(`http://localhost:3000/api/usuarios/${usuarioId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
     if (!response.ok) throw new Error("Usuário não encontrado.");
-
     const usuario = await response.json();
-    userName.innerText = usuario.nome || "Usuário";
+    nomeUsuarioLogado = usuario.nome || "Usuário";
+
+    if (userName) {
+      userName.innerText = nomeUsuarioLogado;
+    }
   } catch (err) {
     console.error("Erro ao carregar usuário:", err.message);
-    userName.innerText = "Usuário";
   }
 }
 
-// =================== MODAL EXCLUSÃO COMENTÁRIO ===================
-
+// =================== MODAL EXCLUSÃO ===================
 let comentarioIdParaExcluir = null;
 let metaIdParaAtualizar = null;
 
 function ativarModalExclusaoComentario(id, metaId) {
   comentarioIdParaExcluir = id;
   metaIdParaAtualizar = metaId;
-
   document.getElementById("modalExcluirComentario").classList.remove("hidden");
 }
 
@@ -77,35 +74,78 @@ document.getElementById("confirmarExcluirComentario").onclick = async () => {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
-
     document.getElementById("modalExcluirComentario").classList.add("hidden");
     await carregarComentarios(metaIdParaAtualizar);
-  } catch (err) {
+  } catch {
     mostrarToast("Erro ao excluir comentário", "error");
   }
 };
-
 document.getElementById("cancelarExcluirComentario").onclick = () => {
   document.getElementById("modalExcluirComentario").classList.add("hidden");
 };
 
 // =================== COMENTÁRIOS ===================
+function renderizarComentario(comentario, metaId) {
+  const nome = comentario.usuario?.nome || "Anônimo";
+  const li = document.createElement("li");
+  li.classList.add("comentario");
+  li.innerHTML = `
+    <div class="comentario-cabecalho">
+      <strong>${nome}</strong> comentou:
+    </div>
+    <p>${comentario.conteudo}</p>
+    ${
+      comentario.usuario_id === usuarioId
+        ? `<button class="btn-excluir-comentario" data-id="${comentario.id}" data-meta="${metaId}">🗑</button>`
+        : ""
+    }
+  `;
+  return li;
+}
 
-function renderizarComentarios(metaId, comentarios, container) {
+async function carregarComentarios(metaId) {
+  const container = document.getElementById(`comentarios-${metaId}`);
   container.innerHTML = "";
-  comentarios.forEach((comentario) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      ${comentario.conteudo}
-      ${
-        comentario.usuario_id === usuarioId
-          ? `<button class="btn-excluir-comentario" data-id="${comentario.id}" data-meta="${metaId}">🗑</button>`
-          : ""
-      }
-    `;
-    container.appendChild(li);
-  });
+  try {
+    const res = await fetch(`http://localhost:3000/api/comment/meta/${metaId}`);
+    const comentarios = await res.json();
 
+    comentarios.forEach(({ id, conteudo, usuario, usuario_id }) => {
+  const nome = usuario?.nome || "Anônimo";
+
+  const li = document.createElement("li");
+  li.classList.add("comentario");
+  li.innerHTML = `
+    <div class="comentario-cabecalho">
+      <strong>${nome}</strong> comentou:
+    </div>
+    <p>${conteudo}</p>
+   ${String(usuario_id) === String(usuarioId)
+  ? `<button class="btn-excluir-comentario" data-id="${id}" data-meta="${metaId}" title="Excluir comentário">
+        <span class="icone-lixeira">🗑</span>
+     </button>`
+  : ''}
+  `;
+  container.appendChild(li);
+});
+
+
+    // atualizar botões excluir
+    document.querySelectorAll(".btn-excluir-comentario").forEach((btn) => {
+      btn.onclick = () => {
+        ativarModalExclusaoComentario(
+          btn.dataset.id,
+          btn.dataset.meta
+        );
+      };
+    });
+  } catch (err) {
+    console.error("Erro ao carregar comentários:", err);
+  }
+}
+
+
+function ativarExclusao() {
   document.querySelectorAll(".btn-excluir-comentario").forEach((btn) => {
     btn.onclick = () => {
       const id = btn.getAttribute("data-id");
@@ -115,19 +155,6 @@ function renderizarComentarios(metaId, comentarios, container) {
   });
 }
 
-async function carregarComentarios(metaId) {
-  const container = document.getElementById(`comentarios-${metaId}`);
-  if (!container) return;
-
-  try {
-    const res = await fetch(`http://localhost:3000/api/comment/meta/${metaId}`);
-    const comentarios = await res.json();
-    renderizarComentarios(metaId, comentarios, container);
-  } catch (error) {
-    console.error("Erro ao carregar comentários:", error);
-  }
-}
-
 function ativarEnvioDeComentarios() {
   document.querySelectorAll(".form-comentario").forEach((form) => {
     form.onsubmit = async (e) => {
@@ -135,7 +162,6 @@ function ativarEnvioDeComentarios() {
       const metaId = form.getAttribute("data-meta-id");
       const input = form.querySelector(".comentario-input");
       const conteudo = input.value.trim();
-
       if (!conteudo) return;
 
       try {
@@ -148,11 +174,17 @@ function ativarEnvioDeComentarios() {
           body: JSON.stringify({ meta_id: metaId, conteudo }),
         });
 
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error);
+        const { data } = await response.json();
+        if (!response.ok) throw new Error("Falha ao comentar");
 
         input.value = "";
-        await carregarComentarios(metaId);
+
+        const comentario = data[0];
+        comentario.usuario = { nome: nomeUsuarioLogado }; // adiciona nome manualmente
+        const container = document.getElementById(`comentarios-${metaId}`);
+        const novo = renderizarComentario(comentario, metaId);
+        container.appendChild(novo);
+        ativarExclusao();
       } catch (err) {
         mostrarToast("Erro ao comentar: " + err.message);
       }
@@ -161,7 +193,6 @@ function ativarEnvioDeComentarios() {
 }
 
 // =================== METAS ===================
-
 function renderizarMeta(meta) {
   const li = document.createElement("li");
   li.classList.add("post");
@@ -170,11 +201,13 @@ function renderizarMeta(meta) {
     <div class="meta-card">
       <strong>${meta.usuario?.nome || "Anônimo"}</strong>
       <p>${meta.descricao}</p>
-      <small>Incentivos: <span id="incentivo-count-${meta.id}">${meta.incentivos || 0}</span></small>
-      <br />
-      <button class="btn-apoiar" data-meta-id="${meta.id}">
-        <img src="/apoio.svg" alt="Incentivo" width="16" style="vertical-align: middle; margin-right: 4px;" />
+      
+      <div class="incentivo-container">
+        <button class="btn-apoiar" data-meta-id="${meta.id}">
+          <img src="/apoio.svg" alt="Apoiar" class="icone-incentivo" />
         </button>
+        <span id="incentivo-count-${meta.id}" class="contador-incentivo">${meta.incentivos || 0}</span>
+      </div>
 
       <form class="form-comentario" data-meta-id="${meta.id}">
         <input type="text" class="comentario-input" placeholder="Escreva um comentário..." required />
@@ -207,36 +240,26 @@ function renderizarMeta(meta) {
       countSpan.innerText = parseInt(countSpan.innerText) + 1;
 
       btn.disabled = true;
-      btn.innerText = "Apoiado!";
     } catch (err) {
       mostrarToast("Você já apoiou esta meta", "error");
     }
   });
 }
 
+
 async function carregarMetas() {
   try {
     const response = await fetch("http://localhost:3000/api/goals", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     });
-
     const metas = await response.json();
 
-    if (!Array.isArray(metas)) {
-      console.error("Erro: dados recebidos não são uma lista de metas", metas);
-      return;
-    }
-
     postsContainer.innerHTML = "";
-    metas.forEach((meta) => renderizarMeta(meta));
+    metas.forEach(renderizarMeta);
   } catch (err) {
     console.error("Erro ao carregar metas:", err.message);
   }
 }
-
-// =================== NOVA META ===================
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -260,10 +283,9 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-// =================== TOAST ===================
-
 function mostrarToast(mensagem, tipo = "error") {
   const toast = document.getElementById("toast");
+  if (!toast) return;
   toast.className = `toast ${tipo}`;
   toast.innerText = mensagem;
   toast.classList.add("show");
@@ -275,6 +297,5 @@ function mostrarToast(mensagem, tipo = "error") {
   }, 3000);
 }
 
-// Inicialização
 carregarUsuario();
 carregarMetas();

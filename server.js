@@ -7,8 +7,6 @@ import goalRoutes from "./src/routes/goalRoutes.js";
 import incentiveRoutes from "./src/routes/incentiveRoutes.js";
 import commentRoutes from "./src/routes/commentRoutes.js";
 
-
-
 dotenv.config();
 
 const app = express();
@@ -24,7 +22,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Rotas
 app.use("/api/auth", authRoutes);
 app.use("/api/usuarios", userRoutes);
 app.use("/api/goals", goalRoutes);

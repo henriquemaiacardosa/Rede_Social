@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((res) => res.json())
     .then((user) => {
       const nome = user.nome || "Usuário";
-      document.querySelector(".profile-header h2").textContent = nome;
+      document.querySelector(".profile-header").innerHTML = `<h2>${nome}</h2>`;
     });
 
   // Carregar metas do usuário
@@ -52,13 +52,35 @@ document.addEventListener("DOMContentLoaded", () => {
         metas.forEach((meta) => {
           const li = document.createElement("li");
           li.classList.add("goal-item");
-          li.innerHTML = `
-            <p><strong>${meta.titulo}</strong>: ${meta.descricao}</p>
-            <div class="goal-actions">
-              <button class="btn-edit" onclick="editarMeta(${meta.id}, '${meta.titulo.replace(/'/g, "&#39;")}', '${meta.descricao.replace(/'/g, "&#39;")}')">Editar</button>
-              <button class="btn-delete" onclick="excluirMeta(${meta.id})">Excluir</button>
-            </div>
-          `;
+
+          const p = document.createElement("p");
+          p.innerHTML = `<strong>${meta.titulo}</strong>: ${meta.descricao}`;
+
+          const div = document.createElement("div");
+          div.className = "goal-actions";
+
+          const btnEdit = document.createElement("button");
+          btnEdit.className = "btn-edit";
+          btnEdit.textContent = "Editar";
+          btnEdit.addEventListener("click", () => {
+            document.getElementById("editId").value = meta.id;
+            document.getElementById("editTitulo").value = meta.titulo;
+            document.getElementById("editDescricao").value = meta.descricao;
+            const modal = new bootstrap.Modal(document.getElementById("editModal"));
+            modal.show();
+          });
+
+          const btnDelete = document.createElement("button");
+          btnDelete.className = "btn-delete";
+          btnDelete.textContent = "Excluir";
+          btnDelete.addEventListener("click", () => excluirMeta(meta.id));
+
+          div.appendChild(btnEdit);
+          div.appendChild(btnDelete);
+
+          li.appendChild(p);
+          li.appendChild(div);
+
           lista.appendChild(li);
         });
       });
@@ -66,16 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   carregarMetas();
 
-  // Função de edição
-  window.editarMeta = (id, titulo, descricao) => {
-    document.getElementById("editId").value = id;
-    document.getElementById("editTitulo").value = titulo;
-    document.getElementById("editDescricao").value = descricao;
-
-    const modal = new bootstrap.Modal(document.getElementById("editModal"));
-    modal.show();
-  };
-
+  // Editar meta
   document.getElementById("salvarEdicao").addEventListener("click", async () => {
     const id = document.getElementById("editId").value;
     const titulo = document.getElementById("editTitulo").value.trim();
@@ -100,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ================== Modal de Exclusão ==================
+  // Excluir meta
   let metaIdParaExcluir = null;
 
   window.excluirMeta = (id) => {

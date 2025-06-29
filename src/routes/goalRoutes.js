@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post("/", autenticarToken, createGoal);
 router.get("/", getGoals);
-router.get("/user", autenticarToken, getUserGoals); // ✅ agora válido
+router.get("/user", autenticarToken, getUserGoals); 
 router.get("/:id", getGoalById);
 router.put("/:id", autenticarToken, updateGoal);
 router.delete("/:id", autenticarToken, deleteGoal);

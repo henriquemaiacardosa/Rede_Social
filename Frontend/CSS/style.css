@@ -20,12 +20,22 @@ header {
 .logo-container {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .logo {
-  max-width: 40px;
-  margin-right: 10px;
+  width: 32px;
+  height: 32px;
 }
+
+.logo-container h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
 
 h1 {
   font-size: 24px;
@@ -38,18 +48,19 @@ h1 {
 }
 
 .btn-nav {
-  background-color: #005580;
+  background-color: #005f91;
   color: white;
   border: none;
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
-  font-size: 16px;
 }
 
 .btn-nav:hover {
-  background-color: #004466;
+  background-color: #00466d;
 }
+
 
 .main {
   display: flex;
@@ -242,12 +253,22 @@ h1 {
 
 
 .btn-excluir-comentario {
+ position: absolute;
+  bottom: 8px;
+  right: 10px;
   background: transparent;
   border: none;
-  color: red;
-  margin-left: 10px;
   cursor: pointer;
-  font-size: 14px;
+}
+
+.icone-lixeira {
+  font-size: 20px; /* aumenta o ícone */
+  color: #c0392b;
+  transition: transform 0.2s ease;
+}
+
+.icone-lixeira:hover {
+  transform: scale(1.2);
 }
 
 .modal {
@@ -300,4 +321,48 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+
+.comentario {
+  background-color: #f9f9f9;
+  border-left: 4px solid #007bff;
+  padding: 10px 14px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: relative;
+  padding-bottom: 30px; 
+}
+
+.comentario-cabecalho {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.incentivo-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.btn-apoiar {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.icone-incentivo {
+  width: 28px;
+  height: 28px;
+}
+
+.contador-incentivo {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
 }
