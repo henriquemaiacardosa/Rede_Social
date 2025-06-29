@@ -2,7 +2,7 @@
 
 Rede Social para compartilhamento de metas, onde os usuários podem compartilhar seus objetivos, projetos em andamento ou iniciar novos diretamente na plataforma GOALS. Outros usuários podem interagir com as metas, incentivando ou deixando comentários positivos.
 
-A aplicação tem como principal função a exposição de conteúdo, permitindo que os usuários visualizem publicações e, através de um painel, possam criar, editar e excluir posts. A plataforma facilitará a produção e organização das metas, possibilitando a inserção de textos formatados e imagens de maneira simples e intuitiva.
+A aplicação tem como principal função a exposição de conteúdo, permitindo que os usuários visualizem publicações e, através de um painel, possam criar, editar e excluir posts. A plataforma facilitará a produção e organização das metas, possibilitando a inserção de textos formatados de maneira simples e intuitiva.
 
 ---
 
@@ -10,23 +10,20 @@ A aplicação tem como principal função a exposição de conteúdo, permitindo
 
 ### 🖼️ Frontend:
 
-- React
+- HTML
+- CSS
+- Javascript
+- Bootstrap
 
 ### 🖧 Backend:
 
 - Node.js
 - Express.js
 - Supabase
-- Jest (para Teste)
 
 ### 🔒 Autenticação:
 
 - JWT (JSON Web Token)
-
-### 🚀 Deploy:
-
-- Vercel
-- Render
 
 ---
 
@@ -43,9 +40,8 @@ A aplicação tem como principal função a exposição de conteúdo, permitindo
 
 - **RNF01:** A aplicação deve garantir a segurança das transações e dados do usuário.
 - **RNF02:** O backend deve ser desenvolvido com Node.js e Express.js.
-- **RNF03:** O deploy deve ser feito com CI/CD usando Vercel ou Render.
-- **RNF04:** A aplicação deve ser responsiva e acessível.
-- **RNF05:** A aplicação deve ser testada com o framework Jest.
+- **RNF03:** A aplicação deve ser responsiva e acessível.
+
 
 ---
 
