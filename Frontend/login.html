@@ -11,11 +11,25 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap"
       rel="stylesheet"
     />
-    <title>Login</title>
+    <title>Login | GOALS</title>
   </head>
+
+  <style>
+    body {
+      background-image: url('/Frontend/src/assets/cloud.svg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+  </style>
+  
   <body>
     <main>
-      <h1>GOALS</h1>
+      <div class="logo-container">
+        <img src="/logo.png" alt="Logo GOALS" class="logo" />
+      </div>
+      
+      <h1>Login</h1>
       <form id="formLogin">
         <div class="field">
           <strong>E-mail</strong>
@@ -46,6 +60,5 @@
     </main>
 
     <script type="module" src="Controllers/login.js"></script>
-
   </body>
 </html>

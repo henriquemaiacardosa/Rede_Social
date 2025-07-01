@@ -5,9 +5,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="CSS/style.css" />
-  <title>GOALS</title>
+  <title>Feed | GOALS</title>
 </head>
+
+<style>
+    body {
+      background-image: url('/Frontend/src/assets/cloud.svg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+  </style>
 
 <body>
   <header>
@@ -18,8 +28,15 @@
       </div>
 
       <div class="nav-buttons">
-        <button onclick="window.location.href='profile.html'" class="btn-nav">Perfil</button>
-        <button id="logoutBtn" class="btn-nav">Sair</button>
+        <a href="index.html" class="icon-nav" title="Página Inicial">
+          <i class="fas fa-home"></i>
+        </a>
+        <a href="profile.html" class="icon-nav" title="Perfil">
+          <i class="fas fa-user"></i>
+        </a>
+        <a href="#" id="logoutBtn" class="icon-nav" title="Sair">
+          <i class="fas fa-sign-out-alt"></i>
+        </a>
       </div>
     </div>
   </header>
@@ -27,7 +44,7 @@
   <main class="main">
     <div class="newPost">
       <div class="infoUser">
-        <strong>Digite sua meta</strong>
+        <strong>Poste uma nova meta</strong>
       </div>
 
       <form id="formPost" class="formPost">

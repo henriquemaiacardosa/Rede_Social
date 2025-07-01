@@ -7,8 +7,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="CSS/styleProfile.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <title>Perfil - GOALS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <title>Perfil | GOALS</title>
 </head>
+
+<style>
+    body {
+      background-image: url('/Frontend/src/assets/cloud.svg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+  </style>
 
 <body>
   <header>
@@ -19,8 +29,15 @@
       </div>
 
       <div class="nav-buttons">
-        <button onclick="window.location.href='index.html'" class="btn-nav">Feed</button>
-        <button onclick="window.location.href='login.html'" class="btn-nav">Sair</button>
+        <a href="index.html" class="icon-nav" title="Feed">
+          <i class="fas fa-home"></i>
+        </a>
+        <a href="profile.html" class="icon-nav" title="Perfil">
+          <i class="fas fa-user"></i>
+        </a>
+        <a href="login.html" class="icon-nav" title="Sair">
+          <i class="fas fa-sign-out-alt"></i>
+        </a>
       </div>
     </div>
   </header>
@@ -31,7 +48,7 @@
        
         
       </div>
-      <h3>Suas Metas</h3>
+      <h3 id="smetas">Suas Metas</h3>
 
       <ul class="user-goals" id="userGoals">
       </ul>
@@ -68,14 +85,14 @@
   <script type="module" src="Controllers/profile.js"></script>
 
   <div id="modalExcluir" class="modal-overlay hidden">
-  <div class="modal-box">
-    <h3>Tem certeza que deseja excluir esta meta?</h3>
-    <div class="modal-actions">
-      <button id="cancelarExclusao" class="btn-cancelar">Cancelar</button>
-      <button id="confirmarExclusao" class="btn-confirmar">Excluir</button>
+    <div class="modal-box">
+      <h3>Tem certeza que deseja excluir esta meta?</h3>
+      <div class="modal-actions">
+        <button id="cancelarExclusao" class="btn-cancelar">Cancelar</button>
+        <button id="confirmarExclusao" class="btn-confirmar">Excluir</button>
+      </div>
     </div>
   </div>
-</div>
 
 </body>
 
